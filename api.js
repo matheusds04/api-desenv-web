@@ -56,7 +56,31 @@ app.get('/buscarcarro', async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar carro' });
   }
 });
+app.put('/atualizarcarro/:id', async (req, res) => {
+  try {
+    const carro = await CarroBD.findByIdAndUpdate(req.params.id, req.body, {
+      new: true
+    });
+    if (!carro) {
+      return res.status(404).json({ error: 'Carro não encontrado' });
+    }
+    res.json(carro);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao atualizar o carro' });
+  }
+});
 
+app.delete('/removercarro/:id', async (req, res) => {
+  try {
+    const carro = await CarroBD.findByIdAndRemove(req.params.id);
+    if (!carro) {
+      return res.status(404).json({ error: 'Carro não encontrado' });
+    }
+    res.json({ message: 'Carro removido com sucesso' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao remover o carro' });
+  }
+});
 app.post('/adicionarcarro', async (req, res) => {
   try {
     const carro = new CarroBD(req.body);

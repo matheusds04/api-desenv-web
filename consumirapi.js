@@ -32,3 +32,45 @@ async function AdicionarCarro(){
       console.error('Erro ao criar novo carro:', error);
     });
 }
+
+async function editarCarro(){
+  const body = {
+    marca: 'Honda',
+    ano: '2022',
+    modelo: 'Civic',
+    valor: '40000'
+  }
+  
+  await fetch(`http://localhost:3000/adicionarcarro/${}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Erro ao criar novo carro:', error);
+    });
+}
+
+async function excluirCarro(){
+
+  await fetch(`http://localhost:3000/adicionarcarro/${}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.error('Erro ao criar novo carro:', error);
+    });
+}
